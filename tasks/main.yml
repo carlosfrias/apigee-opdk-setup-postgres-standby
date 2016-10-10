@@ -4,6 +4,7 @@
   shell: '{{ apigee_service }} apigee-postgresql stop'
 
 - name: Remove Postgres data directory
+  become: true
   file:
     path: '{{ apigee_installation_home }}/data/apigee-postgresql/pgdata'
     state: absent
