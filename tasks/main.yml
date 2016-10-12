@@ -8,10 +8,12 @@
   file:
     path: '{{ apigee_installation_home }}/data/apigee-postgresql/pgdata'
     state: absent
+- pause:
 
 - name: Postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
   register: results
+- pause:
 
 - name: Validate posgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
