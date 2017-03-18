@@ -11,7 +11,6 @@
 
 - name: Postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
-  register: results
 
-- name: Validate posgres replication standby
+- name: Validate postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
