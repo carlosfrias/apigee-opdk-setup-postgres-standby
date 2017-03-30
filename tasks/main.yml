@@ -9,8 +9,16 @@
     path: '{{ apigee_installation_home }}/data/apigee-postgresql/pgdata'
     state: absent
 
-- name: Postgres replication standby
-  shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+- block:
+
+  - name: Postgres replication standby
+    shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+    register: replication_output
+
+  rescue:
+    - name: Determine if max_wal_senders value must be updated
+      set_fact:
+        update_max_wal_settings: "{{ replication_output.stdout | search('number of requested standby connections exceeds max_wal_senders') }}"
 
 - name: Validate postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
