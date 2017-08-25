@@ -11,5 +11,9 @@
       set_fact:
         update_max_wal_settings: "{{ replication_output.stdout | search('number of requested standby connections exceeds max_wal_senders') }}"
 
+    - name: Postgres replication standby
+      shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+      register: replication_output
+
 - name: Validate postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
