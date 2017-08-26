@@ -6,9 +6,11 @@
       path: "{{ apigee_installation_home }}/data/apigee-postrgresql"
       state: absent
 
+  - name: Restart postgres
+    shell: "{{ apigee_service }} apigee-postgresql start"
+
   - name: Postgres replication standby
     shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
-    register: replication_output
 
   rescue:
     - name: Determine if max_wal_senders value must be updated
@@ -17,7 +19,6 @@
 
     - name: Postgres replication standby
       shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
-      register: replication_output
 
 - name: Validate postgres replication standby
   shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
