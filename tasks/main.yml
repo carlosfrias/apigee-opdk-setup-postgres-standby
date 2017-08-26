@@ -3,7 +3,7 @@
 - block:
   - name: Clear the pgdata folder
     file:
-      path: "{{ apigee_installation_home }}/data/apigee-postrgresql/pgdata"
+      path: "{{ apigee_installation_home }}/data/apigee-postrgresql"
       state: absent
 
   - name: Postgres replication standby
