@@ -18,8 +18,10 @@
       shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
 
 - block:
+   - name: Ensure component is started
+      shell: "{{ apigee_service }} apigee-postgresql start"
 
-  - name: Wait for ready with no proxy
+  - name: Wait for ready
     command: '{{ apigee_all }} wait_for_ready'
     when: validate_ready | default(true)
 
@@ -28,6 +30,10 @@
   rescue:
     - name: Ensure component is started
       shell: "{{ apigee_service }} apigee-postgresql start"
+
+    - name: Wait for ready
+      command: '{{ apigee_all }} wait_for_ready'
+      when: validate_ready | default(true)
 
     - name: Validate postgres replication standby
       shell: '{{ apigee_service }} apigee-postgresql postgres-check-standby'
