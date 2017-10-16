@@ -23,7 +23,7 @@
 
 - name: Give the server some extra time
   pause:
-    minute: 1
+    minutes: 1
   when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.09', '<=')
 
 - name: Wait for ready
