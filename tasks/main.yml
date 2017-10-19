@@ -21,10 +21,10 @@
   - name: Ensure component is started
     shell: "{{ apigee_all }} start"
 
-  - name: Give the server some extra time
-    pause:
-      minutes: 1
-    when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.09', '<=')
+#  - name: Give the server some extra time
+#    pause:
+#      seconds: 10
+#    when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.09', '<=')
 
   - name: Wait for ready
     command: '{{ apigee_service }} apigee-postgresql wait_for_ready'
