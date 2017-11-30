@@ -8,6 +8,7 @@
 
   - name: Postgres replication standby
     shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+    register: replication_output
 
   rescue:
     - name: Determine if max_wal_senders value must be updated
