@@ -2,6 +2,7 @@
 # tasks file for apigee-opdk-setup-postgres-standby
 - block:
   - name: Clear the pgdata folder
+    become: yes
     file:
       path: "{{ apigee_postgresql_data_dir }}"
       state: absent
