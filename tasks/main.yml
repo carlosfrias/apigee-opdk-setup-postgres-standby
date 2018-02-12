@@ -8,7 +8,7 @@
       state: absent
 
   - name: Postgres replication standby
-    shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+    shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
     register: replication_output
 
   rescue:
@@ -17,11 +17,11 @@
         update_max_wal_settings: "{{ replication_output.stdout | search('number of requested standby connections exceeds max_wal_senders') }}"
 
     - name: Postgres replication standby
-      shell: '{{ apigee_service }} apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+      shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
 
 - name: Ensure component is started
   shell: "{{ apigee_all }} start"
 
 - name: Wait for ready
-  command: '{{ apigee_service }} apigee-postgresql wait_for_ready'
+  command: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql wait_for_ready'
   when: validate_ready | default(true)
