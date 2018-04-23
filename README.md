@@ -14,8 +14,8 @@ Role Variables
 | Variable Name | Description |
 | --- | --- |
 | opdk_installation_config_file | Response file used to install Apigee |
-| apigee_all | Cannonical name of the apigee-all script. |
-| apigee_postgresql_data_dir | Cannonical path to pgdata folder. |
+| apigee_all | Cannonical name of the apigee-all script |
+| apigee_postgresql_data_dir | Cannonical path to pgdata folder |
 
 Dependencies
 ------------
