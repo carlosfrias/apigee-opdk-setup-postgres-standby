@@ -14,7 +14,7 @@
   rescue:
     - name: Determine if max_wal_senders value must be updated
       set_fact:
-        update_max_wal_settings: "{{ replication_output.stdout | search('number of requested standby connections exceeds max_wal_senders') }}"
+        update_max_wal_settings: "{{ replication_output.stdout is search('number of requested standby connections exceeds max_wal_senders') }}"
 
     - name: Postgres replication standby
       shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
