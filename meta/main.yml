@@ -13,4 +13,4 @@ galaxy_info:
   - apigee
   - opdk
 dependencies:
-- apigee-opdk-setup-postegres-config
+- apigee-opdk-setup-postgres-config
