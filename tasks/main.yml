@@ -11,6 +11,7 @@
     wait_for:
       host: "{{ pgmaster_ip }}"
       port: 5432
+      timeout: 5
 
   - name: Postgres replication standby
     shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
@@ -20,9 +21,11 @@
     - name: Determine if max_wal_senders value must be updated
       set_fact:
         update_max_wal_settings: "{{ replication_output.stdout is search('number of requested standby connections exceeds max_wal_senders') }}"
+      when: replication_output is defined
 
     - name: Postgres replication standby
       shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+      when: update_max_wal_settings is defined
 
 - name: Ensure component is started
   shell: "{{ apigee_all }} start"
