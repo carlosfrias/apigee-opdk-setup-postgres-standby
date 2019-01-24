@@ -5,10 +5,10 @@
 
   #      state: absent
 - block:
-    #  - name: Clear the pgdata folder
-    #    become: yes
-    #    file:
-    #      path: "{{ apigee_postgresql_data_dir }}"
+      - name: Clear the pgdata folder
+        become: yes
+        file:
+          path: "{{ apigee_postgresql_data_dir }}"
 
     - name: Wait for PG Master
     wait_for:
