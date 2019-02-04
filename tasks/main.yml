@@ -17,7 +17,7 @@
       timeout: 5
 
   - name: Postgres replication standby
-    shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+    shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ target_response_file_path }}'
     register: replication_output
 
   rescue:
@@ -27,7 +27,7 @@
       when: replication_output is defined
 
     - name: Postgres replication standby
-      shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ opdk_installation_config_file }}'
+      shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ target_response_file_path }}'
       when: update_max_wal_settings is defined
 
 - name: Start Postgres
