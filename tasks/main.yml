@@ -14,7 +14,7 @@
     wait_for:
       host: "{{ pgmaster_ip }}"
       port: 5432
-      timeout: 5
+      timeout: 120
 
   - name: Postgres replication standby
     shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-postgresql setup-replication-on-standby -f {{ target_response_file_path }}'
