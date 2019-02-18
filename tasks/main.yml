@@ -21,6 +21,33 @@
     register: replication_output
 
   rescue:
+    - name: Check Postgres installation settings on Master
+      import_role:
+        name: apigee-opdk-settings-postgres
+      delegate_to: "pgmaster"
+
+    - name: Update Silent Installation Config for Master
+      import_role:
+        name: apigee-opdk-setup-silent-installation-config
+      delegate_to: "pgmaster"
+
+    - name: Refesh Postgres Component on Master
+        import_role:
+          name: apigee-opdk-setup-component
+        vars:
+          profile: 'ps'
+      delegate_to: "pgmaster"
+
+    - name: Update Postgres Config on Master
+      import_role:
+        name: apigee-opdk-setup-postgres-config
+      delegate_to: "pgmaster"
+
+    - name: Update Postres Master Configuration on Master
+      import_role:
+        name: apigee-opdk-setup-postgres-master
+      delegate_to: "pgmaster"
+
     - name: Determine if max_wal_senders value must be updated
       set_fact:
         update_max_wal_settings: "{{ replication_output.stdout is search('number of requested standby connections exceeds max_wal_senders') }}"
