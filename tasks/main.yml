@@ -32,10 +32,10 @@
       delegate_to: "pgmaster"
 
     - name: Refesh Postgres Component on Master
-        import_role:
-          name: apigee-opdk-setup-component
-        vars:
-          profile: 'ps'
+      import_role:
+        name: apigee-opdk-setup-component
+      vars:
+        profile: 'ps'
       delegate_to: "pgmaster"
 
     - name: Update Postgres Config on Master
