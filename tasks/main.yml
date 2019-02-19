@@ -21,17 +21,7 @@
     register: replication_output
 
   rescue:
-    - name: Check Postgres installation settings on Master
-      import_role:
-        name: apigee-opdk-settings-postgres
-      delegate_to: "pgmaster_ip"
-
-    - name: Update Silent Installation Config for Master
-      import_role:
-        name: apigee-opdk-setup-silent-installation-config
-      delegate_to: "pgmaster_ip"
-
-    - name: Refesh Postgres Component on Master
+    - name: Refresh Postgres Component on Master
       import_role:
         name: apigee-opdk-setup-component
       vars:
