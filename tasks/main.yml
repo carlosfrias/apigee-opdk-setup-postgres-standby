@@ -9,6 +9,7 @@
     become: yes
     file:
       path: "{{ apigee_postgresql_data_dir }}"
+      state: absent
 
   - name: Wait for PG Master
     wait_for:
